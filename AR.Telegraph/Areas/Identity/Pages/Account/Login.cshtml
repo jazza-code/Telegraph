@@ -1,0 +1,143 @@
+﻿@page "/Login"
+@model LoginModel
+
+@{
+    Layout = "";
+    ViewData["Title"] = "تسجيل الدخول";
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تسجيل الدخول - تلغراف</title>
+    <link href="https://fonts.googleapis.com/css?family=Amiri&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="~/favicon.ico" />
+</head>
+<body>
+    <header>
+        @await Html.PartialAsync("/Pages/Shared/_TopBar.cshtml")
+        @await Html.PartialAsync("/Pages/Shared/_HeadNav.cshtml", null, new ViewDataDictionary(ViewData) { { "LoginPage", true }, {"RegiserPage", false } } )
+    </header>
+    <main class="container-fluid py-3">
+        <div class="row justify-content-center mr-auto mx-auto">
+            <div class="login card">
+                <div class="card-header" style="text-align:center;">
+                    @{
+                        if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                @Model.ErrorMessage
+                            </div>
+                        }
+                        if ((Model.ExternalLogins?.Count ?? 0) != 0)
+                        {
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                <div class="social-logins">
+                                    @foreach (var provider in Model.ExternalLogins)
+                                    {
+                                        if (provider.Name.ToLower() == "google")
+                                        {
+                                            <button type="submit" class="btn" style="background-color:#DB4437;color:#fff;" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">
+                                                <i class="fab fa-2x fa-google"></i>
+                                            </button>
+                                        }
+                                        else if (provider.Name.ToLower() == "facebook")
+                                        {
+                                            <button type="submit" class="btn" style="background-color:#3b5998;color:#fff;" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">
+                                                <i class="fab fa-2x fa-facebook"></i>
+                                            </button>
+                                        }
+                                        else if (provider.Name.ToLower() == "twitter")
+                                        {
+                                            <button type="submit" class="btn" style="background-color:#38A1F3;color:#fff;" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">
+                                                <i class="fab fa-2x fa-twitter"></i>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="submit" class="btn btn-dark" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">@provider.DisplayName</button>
+                                        }
+                                    }
+
+                                </div>
+                            </form>
+                        }
+                    }
+                </div>
+                <form id="login-form" class="card-body" method="post">
+                    <div method="post">
+                        <div class="form-group">
+                            <label asp-for="Input.Email"></label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Input.Password"></label>
+                            <input asp-for="Input.Password" class="form-control" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Input.RememberMe">
+                                    <input asp-for="Input.RememberMe" />
+                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <a id="forgot-password" asp-page="./ForgotPassword">نسيت كلمة المرر ؟</a>
+                        </div>
+                    </div>
+                    <hr class="clearfix" />
+                    <div class="form-group">
+                        <button id="login-submit" type="submit" class="btn btn-primary">تسجيل الدخول</button>
+                        <a class="btn btn-light" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Model.ReturnUrl"><i class="fa fa-user-plus"></i>&nbsp;تسجيل</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            &copy; 2019 - تلغراف - <a asp-area="" asp-page="/Privacy">الخصوصية</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+            $('#login-form').on('blur keyup change click', 'input', function (e) {
+                validateSubmitForm();
+            });
+            $('#login-submit').on('click', function (e) {
+                e.preventDefault();
+                var img = document.createElement('img');
+                img.src = "@Url.Content("~/images/ajax-loader.gif")";
+                img.width = "10";
+                img.height = "10";
+                img.style = "width:10px;height:10px; margin:5px;";
+                $('#login-submit').prop('disabled', 'disabled');
+                $(this).append(img);
+                $('#login-form').submit();
+            });
+            function validateSubmitForm() {
+                var valid = $('#login-form').valid();
+                if (valid) {
+                    $('#login-submit').removeAttr('disabled');
+                }
+                else {
+                    $('#login-submit').prop('disabled', 'disabled');
+                }
+            }
+    </script>
+</body>
+</html>

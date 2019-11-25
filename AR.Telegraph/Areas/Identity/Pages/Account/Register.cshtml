@@ -1,0 +1,174 @@
+﻿@page "/Register"
+@model RegisterModel
+@{
+    Layout = "";
+    ViewData["Title"] = "تسجيل";
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - تلغراف</title>
+    <link href="https://fonts.googleapis.com/css?family=Amiri&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="~/favicon.ico" />
+</head>
+<body>
+    <header>
+        @await Html.PartialAsync("/Pages/Shared/_TopBar.cshtml")
+        @await Html.PartialAsync("/Pages/Shared/_HeadNav.cshtml", null, new ViewDataDictionary(ViewData) { { "LoginPage", false }, { "RegiserPage", true } })
+    </header>
+    <main class="container-fluid py-3">
+        <div class="row justify-content-center mr-auto mx-auto">
+            <div class="register card">
+                <div class="card-header">
+                    @{
+                        if ((Model.ExternalLogins?.Count ?? 0) != 0)
+                        {
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                <div class="social-logins" style="text-align:center;">
+                                    @foreach (var provider in Model.ExternalLogins)
+                                    {
+                                        if (provider.Name.ToLower() == "google")
+                                        {
+                                            <button type="submit" class="btn" style="background-color:#DB4437;color:#fff;" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">
+                                                <i class="fab fa-2x fa-google"></i>
+                                            </button>
+                                        }
+                                        else if (provider.Name.ToLower() == "facebook")
+                                        {
+                                            <button type="submit" class="btn" style="background-color:#3b5998;color:#fff;" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">
+                                                <i class="fab fa-2x fa-facebook"></i>
+                                            </button>
+                                        }
+                                        else if (provider.Name.ToLower() == "twitter")
+                                        {
+                                            <button type="submit" class="btn" style="background-color:#38A1F3;color:#fff;" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">
+                                                <i class="fab fa-2x fa-twitter"></i>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="submit" class="btn btn-dark" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">@provider.DisplayName</button>
+                                        }
+                                    }
+
+                                </div>
+                            </form>
+                        }
+                    }
+                </div>
+                <div class="card-body">
+                    <form id="register-form" enctype="multipart/form-data" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-12">
+                                <div class="row justify-content-center">
+                                    <div class="form-group">
+                                        <img id="viewPicture" class="img-thumbnail clearfix" width="100" height="100" style="width:100px; height:100px;" src="~/images/user.jpg" onclick="document.getElementById('uploadPicture').click()" />
+                                        <input id="uploadPicture" type="file" asp-for="Input.Picture" style="display:none;" onchange="readImage(this,'viewPicture')" />
+                                        <span asp-validation-for="Input.Picture" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-12">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <label asp-for="Input.FirstName"></label>
+                                        <input asp-for="Input.FirstName" class="form-control" placeholder="الإسم الأول" />
+                                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <label asp-for="Input.MiddleName"></label>
+                                        <input asp-for="Input.MiddleName" class="form-control" placeholder="الإسم الأسط" />
+                                        <span asp-validation-for="Input.MiddleName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <label asp-for="Input.LastName"></label>
+                                        <input asp-for="Input.LastName" class="form-control" placeholder="الإسم الأخير" />
+                                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <label asp-for="Input.Gender"></label>
+                                        <select asp-for="Input.Gender" class="form-control">
+                                            <option value="">--- الجنس ---</option>
+                                            <option value="Male">ذكر</option>
+                                            <option value="Female">أنثى</option>
+                                        </select>
+                                        <span asp-validation-for="Input.Gender" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <label asp-for="Input.BirthDate"></label>
+                                        <input type="date" asp-for="Input.BirthDate" class="form-control" placeholder="تاريخ الميلاد" />
+                                        <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <label asp-for="Input.Email"></label>
+                                        <input asp-for="Input.Email" class="form-control" />
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <label asp-for="Input.Password"></label>
+                                        <input asp-for="Input.Password" class="form-control" />
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <label asp-for="Input.ConfirmPassword"></label>
+                                        <input asp-for="Input.ConfirmPassword" class="form-control" />
+                                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-10 col-md-10 col-sm-12 offset-lg-2 offset-md-2">
+                                <button id="register-reset" type="reset" class="btn btn-warning">تفريغ الحقول</button>
+                                <button id="register-submit" type="submit" class="btn btn-success">تسجيل</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            &copy; 2019 - تلغراف - <a asp-area="" asp-page="/Privacy">الخصوصية</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        $('#register-form').on('blur keyup change click', 'input', function (e) {
+            e.preventDefault();
+            validateSubmitForm();
+        });
+        $('#register-submit').on('click', function (e) {
+            e.preventDefault();
+            var img = document.createElement('img');
+            img.src = "@Url.Content("~/images/ajax-loader.gif")";
+            img.width = "10";
+            img.height = "10";
+            img.style = "width:10px;height:10px;";
+            $('#register-submit').prop('disabled', 'disabled');
+            $(this).append(img);
+            $('#register-form').submit();
+        });
+        function validateSubmitForm() {
+            var valid = $('#register-form').valid();
+            if (valid) {
+                $('#register-submit').removeAttr('disabled');
+            }
+            else {
+                $('#register-submit').prop('disabled', 'disabled');
+            }
+        }
+    </script>
+</body>
+</html>
+

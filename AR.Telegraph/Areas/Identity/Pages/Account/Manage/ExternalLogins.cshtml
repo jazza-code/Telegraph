@@ -1,0 +1,88 @@
+﻿@page "/Account/ExternalLogins"
+@model ExternalLoginsModel
+@{
+    ViewData["Title"] = "إدارة تسجيلات الدخول الخارجية";
+    ViewData["ActivePage"] = ManageNavPages.ExternalLogins;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="flex-row">
+    <div class="card">
+        <div class="card-header">
+            <strong>تسجيلات الدخول المفعلة</strong>
+        </div>
+        <div class="card-body">
+            @if (Model.CurrentLogins?.Count > 0)
+            {
+                <table class="table table-responsive table-borderless table-hover">
+                    <tbody>
+                        @foreach (var login in Model.CurrentLogins)
+                        {
+                            <tr>
+                                <td>@login.ProviderDisplayName</td>
+                                <td>
+                                    @if (Model.ShowRemoveButton)
+                                    {
+                                        <form id="remove-login" asp-page-handler="RemoveLogin" method="post">
+                                            <div>
+                                                <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
+                                                <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden" />
+                                                <button type="submit" class="btn btn-danger" title="أزل تسجيل الدخول @login.ProviderDisplayName من حسابك">إزالة</button>
+                                            </div>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        @: &nbsp;
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>لا يجد تسجيلات دخول خارجية مفعلة</p>
+            }
+        </div>
+        @if (Model.OtherLogins?.Count > 0)
+        {
+            <div class="card-footer">
+                <div class="flex-row">
+                    <form id="link-login-form" asp-page-handler="LinkLogin" method="post" class="form-horizontal">
+                        <div id="socialLoginList" style="text-align:center;">
+                            @foreach (var provider in Model.OtherLogins)
+                            {
+                                if (provider.Name.ToLower() == "google")
+                                {
+                                    <button type="submit" class="btn" style="background-color:#DB4437;color:#fff;" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">
+                                        <i class="fab fa-2x fa-google"></i>
+                                    </button>
+                                }
+                                else if (provider.Name.ToLower() == "facebook")
+                                {
+                                    <button type="submit" class="btn" style="background-color:#3b5998;color:#fff;" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">
+                                        <i class="fab fa-2x fa-facebook"></i>
+                                    </button>
+                                }
+                                else if (provider.Name.ToLower() == "twitter")
+                                {
+                                    <button type="submit" class="btn" style="background-color:#38A1F3;color:#fff;" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">
+                                        <i class="fab fa-2x fa-twitter"></i>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-dark" name="provider" value="@provider.Name" data-toggle="tooltip" data-placement="bottom" title="سجل دخولك @provider.DisplayName">@provider.DisplayName</button>
+                                }
+                            }
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@inject SignInManager<UserData> SignInManager
+@inject UserManager<UserData> UserManager
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
+    if (user != null)
+    {
+        var uriBuild = new UriBuilder()
+        {
+            Path = Url.Page("Index", new { area = "" }),
+            Query = null
+        };
+        <form id="singout-form" class="hide" hidden asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@uriBuild.Uri"></form>
+        <div id="loginedNav" class="btn-group">
+            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img width="50" height="50"
+                     style="width:35px; height:35px;display:inline-flex;border-radius:3px;"
+                     src="@(user.GetPicture() != null && user.GetPicture().Length > 0 && !string.IsNullOrEmpty(user.PictureType) ? string.Format("data:{0};base64,{1}", user.PictureType, Convert.ToBase64String(user.GetPicture())) : Url.Content("~/images/user.jpg"))" />
+                @user.FullName
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-user-edit"></i>&nbsp;الملف الشخصي</a>
+                @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded)
+                {
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Admin/Users/Index"><i class="fa fa-users"></i>&nbsp;الحسابات</a>
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Admin/Roles/Index">المجموعات</a>
+                }
+                <a class="dropdown-item" href="javascript:void(0)" onclick="document.getElementById('singout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;تسجيل الخروج</a>
+            </div>
+        </div>
+    }
+}

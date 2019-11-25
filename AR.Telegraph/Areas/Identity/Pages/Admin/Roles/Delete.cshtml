@@ -1,0 +1,54 @@
+﻿@page "/Admin/Roles/Delete/{role}"
+@model AR.Telegraph.Areas.Identity.Pages.Admin.Roles.DeleteModel
+@{
+    ViewData["Title"] = Model.Role;
+    Layout = "/Areas/Identity/Pages/Shared/_Layout.cshtml";
+}
+<div class="row justify-content-sm-center">
+    @await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+</div>
+<div class="row justify-content-sm-center">
+    <form id="deleteRole-form" method="post" class="card">
+        <div class="card-header">
+            المجموعة
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <input type="text" asp-for="Role" class="form-control" disabled/>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button id="deleteRole-submit" type="submit" class="btn btn-danger">حذف</button>
+            <a class="btn btn-secondary" asp-area="Identity" asp-page="/Admin/Roles/Index">رجوع</a>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+            $('#deleteRole-form').on('blur keyup change click', 'input', function (e) {
+                validateSubmitForm();
+            });
+            $('#deleteRole-submit').on('click', function (e) {
+                e.preventDefault();
+                var img = document.createElement('img');
+                img.src = "@Url.Content("~/images/ajax-loader.gif")";
+                img.width = "10";
+                img.height = "10";
+                img.style = "width:10px;height:10px; margin:5px;";
+                $('#deleteRole-submit').prop('disabled', 'disabled');
+                $(this).append(img);
+                $('#deleteRole-form').submit();
+            });
+            function validateSubmitForm() {
+                var valid = $('#deleteRole-form').valid();
+                if (valid) {
+                    $('#deleteRole-submit').removeAttr('disabled');
+                }
+                else {
+                    $('#deleteRole-submit').prop('disabled', 'disabled');
+                }
+            }
+    </script>
+}

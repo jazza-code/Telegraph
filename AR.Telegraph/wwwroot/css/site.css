@@ -1,0 +1,470 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+html {
+    position: relative;
+    height: 100% !important;
+    font-size: 16px;
+    font-family: 'Amiri', serif;
+    direction: rtl;
+    text-align: right;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin: 0;
+    height: 100% !important;
+    font-size: 16px;
+    font-family: 'Amiri', serif;
+    direction: rtl;
+    text-align: right;
+}
+
+.form-control {
+    border: none;
+    border-bottom: 2px solid #e5e5e5;
+    border-radius: 0;
+}
+
+    .form-control:focus {
+        box-shadow: none;
+        border-bottom: 3px solid #cb0000;
+        transition: 0.4s;
+    }
+
+select {
+    -webkit-appearance: listbox;
+}
+
+.paading-top {
+    padding-top: 15px;
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+/*-----------------------------------------Top Bar ------------------------------------*/
+.topbar {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    background-color: #fefefe;
+    box-shadow: inset 0px -15px 7px 0px #e9ecef4d;
+    border-bottom: 1px solid #e9ecef;
+    width: 100%;
+    height: 30px;
+}
+
+    .topbar .dateTime {
+        margin: 0;
+        padding: 3px;
+        padding-right: 10px;
+        padding-left: 10px;
+        display: inline-block;
+        color: #000000;
+        float: right;
+    }
+
+        .topbar .dateTime span {
+            color: #cb0000;
+            font-weight: bold;
+        }
+
+            .topbar .dateTime span small {
+                color: #000000;
+            }
+
+    .topbar .social-icons {
+        margin: 0;
+        padding: 0;
+        display: inline-flex;
+        list-style-type: none;
+        overflow: hidden;
+        float: left;
+    }
+
+        .topbar .social-icons li {
+            margin: 0;
+            padding: 0;
+            display: inline;
+        }
+
+            .topbar .social-icons li a {
+                margin: 0;
+                padding: 7px;
+                display: inline-flex;
+                color: #cb0000;
+                text-align: center;
+                text-decoration: none;
+            }
+
+                .topbar .social-icons li a:hover {
+                    background-color: #cb0000;
+                    box-shadow: 1px 1px 1px 0px #adb5bdba;
+                    border-radius: 3px;
+                    color: #fff;
+                    cursor: pointer;
+                }
+
+
+/*------------------------------------------ Header NavBar -------------------------------*/
+#HeadNav a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    font-family: 'Cairo', sans-serif;
+    font-size: 45px;
+    text-shadow: 2px 2px 5px #6c757dde;
+    line-height: 60px;
+    font-weight: 500;
+    color: #343a40;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+#loginedNav .dropdown-toggle {
+    border-radius: 0;
+    border: 1px solid #343a4008;
+}
+
+    #loginedNav .dropdown-toggle::after {
+        display: none !important;
+    }
+
+    #loginedNav .dropdown-toggle:focus,
+    #loginedNav .dropdown-toggle:hover {
+        box-shadow: 0 0 3px 0.1rem #343a4008;
+        transition: all .4s ease-in-out;
+    }
+
+#loginedNav .dropdown-menu {
+    margin: 0;
+    padding: 0;
+    min-width: unset !important;
+    border-radius: 0;
+    float: right;
+    text-align: right;
+    border: none;
+    box-shadow: 0 0 3px 0.1rem #343a4008;
+    transition: all .4s ease;
+}
+
+#loginedNav .dropdown-menu-right {
+    border-radius: 0;
+    right: 0;
+    left: 0;
+}
+
+#loginedNav .dropdown-menu .dropdown-item {
+    padding: .5rem;
+}
+/*--------------------------------------- Main NavBar ------------------------------------*/
+#MainNav.navbar {
+    padding: 0 !important;
+}
+
+#MainNav #MainNavContent .navbar-brand {
+    display: none !important;
+}
+
+#MainNav.navbar-light .navbar-nav .nav-link {
+    font-size: 18px;
+    color: #000000;
+}
+
+    #MainNav.navbar-light .navbar-nav .nav-link.active {
+        margin-bottom: -3px;
+        color: #cb0000;
+        border-bottom: 3px solid #cb0000;
+    }
+
+    #MainNav.navbar-light .navbar-nav .nav-link:hover {
+        margin: 0;
+        border-bottom: none;
+        color: #fff;
+        background-color: #cb0000;
+    }
+
+#MainNav.navbar-light .dropdown-menu {
+    text-align: right !important;
+    right: 0 !important;
+    margin: 0;
+    border-radius: unset;
+}
+
+#MainNav #MainNavContent #secNavUl #LoginPartial {
+    display: none;
+}
+
+.mainNavBreak {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 15px;
+    min-height: 100%;
+    min-width: 100%;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+    .mainNavBreak a {
+        cursor: pointer;
+        text-shadow: none;
+        opacity: 1;
+        float: left;
+    }
+
+        .mainNavBreak a i {
+            color: #cb0000;
+            text-shadow: 1px 1px 16px #e5e5e5;
+        }
+/*------------------------ Identity Manage ------------------------*/
+#identityManage .card {
+    border: none;
+}
+
+#identityManage .card-header {
+    background-color: #e9ecef42;
+    border-color: #e9ecef;
+}
+/* Sticky footer styles
+-------------------------------------------------- */
+.footer {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 30px; /* Vertically center the text there */
+    background-color: #fefefe;
+    box-shadow: inset 0px -15px 7px 0px rgba(233, 236, 239, 0.75);
+    border-top: 1px solid #e9ecef;
+    color: #000000;
+    transition: ease-in-out;
+}
+
+    .footer a {
+        color: rgba(203, 0, 0, 0.70);
+    }
+
+        .footer a:hover {
+            color: #cb0000;
+        }
+
+@media (max-width: 575.98px) {
+    #MainNav #MainNavContent {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 9999;
+        text-align: right;
+        overflow-y: auto;
+        color: #fff;
+        background-color: #e5e5e5;
+        transition: all 0.4s ease;
+        opacity: 0.8;
+    }
+
+        #MainNav #MainNavContent.navbar-collapse.collapsing {
+            height: auto !important;
+            width: auto !important;
+            transition: all 0.2s ease;
+            opacity: 0.9;
+        }
+
+        #MainNav #MainNavContent.navbar-collapse.show {
+            transition: all 0.2s ease;
+            opacity: 1;
+        }
+
+        #MainNav #MainNavContent #mainNavUl {
+            padding: 0;
+            margin: 0;
+        }
+
+            #MainNav #MainNavContent #mainNavUl .nav-link {
+                padding: 7px 10px 7px 10px;
+                font-size: 18px;
+                color: #fff;
+            }
+
+        #MainNav #MainNavContent #secNavUl {
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            display: inline-block;
+            border-top: 1px solid #e5e5e5;
+        }
+
+            #MainNav #MainNavContent #secNavUl li {
+                padding: 0;
+                display: inline-flex;
+            }
+
+                #MainNav #MainNavContent #secNavUl li a {
+                    padding: 5px;
+                    display: inline-flex;
+                }
+
+        #MainNav #MainNavContent .navbar-brand {
+            padding: 0;
+            margin: 0;
+            text-align: right;
+            border-bottom: 1px solid #e5e5e5;
+            box-shadow: inset 0px -1px 20px 0px #e9ecef5c;
+            display: block !important;
+        }
+
+            #MainNav #MainNavContent .navbar-brand img {
+                margin-right: 15px;
+            }
+
+            #MainNav #MainNavContent .navbar-brand span {
+                padding-top: 15px;
+            }
+
+        #MainNav #MainNavContent #secNavUl #LoginPartial {
+            display: inline-block;
+        }
+
+    .mainNavBreak {
+        display: block;
+    }
+}
+
+@media (max-width: 767.98px) {
+    #MainNav #MainNavContent {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 40%;
+        z-index: 9999;
+        text-align: right;
+        overflow-y: auto;
+        color: #fff;
+        background-color: #000000;
+        transition: all 0.4s ease;
+        opacity: 0.8;
+    }
+
+        #MainNav #MainNavContent.navbar-collapse.collapsing {
+            height: auto !important;
+            width: auto !important;
+            transition: all 0.2s ease;
+            opacity: 0.9;
+        }
+
+        #MainNav #MainNavContent.navbar-collapse.show {
+            transition: all 0.2s ease;
+            opacity: 1;
+        }
+
+        #MainNav #MainNavContent #mainNavUl {
+            padding: 0;
+            margin: 0;
+        }
+
+            #MainNav #MainNavContent #mainNavUl .nav-link {
+                padding: 7px 10px 7px 10px;
+                font-size: 18px;
+                color: #fff;
+            }
+
+        #MainNav #MainNavContent #secNavUl {
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            display: inline-block;
+            border-top: 1px solid #e5e5e5;
+        }
+
+            #MainNav #MainNavContent #secNavUl li {
+                padding: 0;
+                display: inline-flex;
+            }
+
+                #MainNav #MainNavContent #secNavUl li a {
+                    padding: 5px;
+                    display: inline-flex;
+                }
+
+        #MainNav #MainNavContent .navbar-brand {
+            padding: 0;
+            margin: 0;
+            text-align: right;
+            border-bottom: 1px solid #e5e5e5;
+            box-shadow: inset 0px -1px 20px 0px #e9ecef5c;
+            display: block !important;
+        }
+
+            #MainNav #MainNavContent .navbar-brand img {
+                margin-right: 15px;
+            }
+
+            #MainNav #MainNavContent .navbar-brand span {
+                padding-top: 15px;
+            }
+
+        #MainNav #MainNavContent #secNavUl #LoginPartial {
+            display: inline-block;
+        }
+
+    .mainNavBreak {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    #MainNav #MainNavContent #secNavUl #LoginPartial {
+        display: none !important;
+    }
+
+    .mainNavBreak {
+        display: none !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+}
+
+@media (max-width: 1199.98px) {
+}
