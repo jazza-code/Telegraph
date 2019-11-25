@@ -31,7 +31,20 @@
                         </tr>
                         <tr>
                             <td>الجنس</td>
-                            <td>@Model.Input.Gender</td>
+                            <td>
+                                @switch (Model.Input.Gender)
+                                {
+                                    case "Male":
+                                        @:ذكر
+                                        break;
+                                    case "Female":
+                                        @:أنثى
+                                        break;
+                                    default:
+                                        @:Model.Input.Gender
+                                        break;
+                                }
+                            </td>
                         </tr>
                         <tr>
                             <td>تاريخ الميلاد</td>

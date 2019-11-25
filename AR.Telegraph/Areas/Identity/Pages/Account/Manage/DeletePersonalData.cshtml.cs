@@ -58,7 +58,15 @@ namespace AR.Telegraph.Areas.Identity.Pages.Account.Manage
                     return Page();
                 }
             }
-
+            var userInAdmin = await _userManager.GetUsersInRoleAsync("Administrator").ConfigureAwait(true);
+            if (userInAdmin.Count <= 1)
+            {
+                if (userInAdmin.Contains(user))
+                {
+                    ModelState.AddModelError(string.Empty,"خطأ , لا يمكن حذف المستخدم قبل إنشاء حساب مسؤول بديل");
+                    return Page();
+                }
+            }
             var result = await _userManager.DeleteAsync(user).ConfigureAwait(true);
             var userId = await _userManager.GetUserIdAsync(user).ConfigureAwait(true);
             if (!result.Succeeded)
