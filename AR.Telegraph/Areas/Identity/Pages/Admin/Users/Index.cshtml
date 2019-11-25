@@ -1,0 +1,43 @@
+﻿@page "/Admin/Accounts"
+@model AR.Telegraph.Areas.Identity.Pages.Admin.Users.IndexModel
+@{
+    ViewData["Title"] = "إدارة الحسابات";
+    Layout = "/Areas/Identity/Pages/Shared/_Layout.cshtml";
+}
+<style>
+    .modal-header .close {
+        margin: -1rem auto -1rem -1rem;
+    }
+
+    .modal-header h5 {
+        margin-right: 5px;
+        margin-top: 10px;
+    }
+</style>
+<div class="row">
+    @for (int i = 0; i < Model.Users.Count(); i++)
+    {
+        <div class="col col-lg-4 col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <img class="img-thumbnail" src="@Model.Users[i].ViewPicture" width="100" height="100" style="width:50px; height:50px;" />
+                    <span>@Model.Users[i].FullName</span>
+                </div>
+                <div class="card-body">
+                    <p>اسم المستخدم: @Model.Users[i].UserName</p>
+                    <p>البريد الإلكتروني: @Model.Users[i].Email</p>
+                </div>
+                <div class="card-footer">
+                    <form method="post" class="form-group">
+                        <a class="btn btn-info" href="@Url.Page("/Admin/Users/Edit", new {Model.Users[i].UserName})">التفاصيل</a>
+                        <button type="submit" asp-page-handler="DeleteAccount" class="btn btn-danger">حذف</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+    @await Html.PartialAsync("_GetUserWithRoles")
+</div>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

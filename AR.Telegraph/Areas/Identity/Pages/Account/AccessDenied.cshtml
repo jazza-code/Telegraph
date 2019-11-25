@@ -1,0 +1,19 @@
+﻿@page "/AccessDenied"
+@model AccessDeniedModel
+@{
+    ViewData["Title"] = "تم رفض الوصول";
+}
+<div class="row justify-content-center mr-auto mx-auto">
+    <div class="card">
+        <div class="card-body">
+            <p>ليس لديك حق الوصول إلى هذا المورد.</p>
+        </div>
+        <div class="card-footer">
+            <a asp-area="" asp-page="/Index">
+                <i class="fa fa-home"></i>
+                الرئيسية
+                <span class="sr-only">(current)</span>
+            </a>
+        </div>
+    </div>
+</div>

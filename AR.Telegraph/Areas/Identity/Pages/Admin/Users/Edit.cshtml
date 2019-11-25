@@ -1,0 +1,132 @@
+﻿@page "/Admin/Account/{username}"
+@model AR.Telegraph.Areas.Identity.Pages.Admin.Users.EditModel
+@{
+    ViewData["Title"] = "إدارة الحساب";
+    Layout = "/Areas/Identity/Pages/Shared/_Layout.cshtml";
+}
+<div class="row justify-content-sm-center">
+    @await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+</div>
+<div class="row justify-content-center mx-auto mr-auto">
+    <form id="account-form" method="post">
+        <div class="card" role="document">
+            <div class="card-header">
+                <img class="img-thumbnail" src="@Model.Input.ViewPicture" width="100" height="100" style="width:50px; height:50px;" />
+                @Model.Input.FullName
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td>الإسم الأول</td>
+                            <td>@Model.Input.FirstName</td>
+                        </tr>
+                        <tr>
+                            <td>الإسم الأوسط</td>
+                            <td>@Model.Input.MiddleName</td>
+                        </tr>
+                        <tr>
+                            <td>الإسم الأخير</td>
+                            <td>@Model.Input.LastName</td>
+                        </tr>
+                        <tr>
+                            <td>الجنس</td>
+                            <td>@Model.Input.Gender</td>
+                        </tr>
+                        <tr>
+                            <td>تاريخ الميلاد</td>
+                            <td>@Model.Input.BirthDate.GetValueOrDefault().ToString("dddd, dd MMMM yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td>اسم المستخدم</td>
+                            <td>@Model.Input.UserName</td>
+                        </tr>
+                        <tr>
+                            <td>البريد الإلكتروني</td>
+                            <td>
+                                <a href="mailto:@Model.Input.Email">@Model.Input.Email</a>
+                                @(Model.Input.EmailConfirmed ? Html.Raw("<span class='badge badge-info'>مؤكد<span>") : Html.Raw("<span class='badge badge-info'>غير مؤكد<span>"))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>رقم الإتصال</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(Model.Input.PhoneNumber))
+                                {
+                                    <a href="tel:@Model.Input.PhoneNumber" style="direction:ltr;unicode-bidi: embed;">@Model.Input.PhoneNumber</a>
+                                    @(Model.Input.PhoneNumberConfirmed ? Html.Raw("<span class='badge badge-info'>مؤكد<span>") : Html.Raw("<span class='badge badge-info'>غير مؤكد<span>"))
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>مصادقة ثنائية</td>
+                            <td>
+                                @(Model.Input.EmailConfirmed ? Html.Raw("المصادقة الثنائية مفعلة") : Html.Raw("لا توجد مصادقة ثنائية"))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>حالة الحساب</td>
+                            <td>
+                                @if (Model.Input.LockoutEnabled)
+                                {
+                                    <span>الحساب مفعل</span>
+                                }
+                                else
+                                {
+                                    <span>الحساب مغلق</span>
+                                    @Model.Input.LockoutEnd.GetValueOrDefault().ToString();
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>محاولات الدخول الخاطئة</td>
+                            <td>@Model.Input.AccessFailedCount</td>
+                        </tr>
+                        <tr>
+                            <td>المجموعات</td>
+                            <td>
+                                <select class="form-control" asp-for="Roles" asp-items="await Model.GetUserRolesAsync(Model.Input.UserName)" multiple>
+                                    <option>--- المجموعات ---</option>
+                                </select>
+                                <span asp-validation-for="Roles" class="text-danger"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <button id="account-submit" type="submit" class="btn btn-success" disabled>حفظ</button>
+                <a class="btn btn-secondary" asp-area="Identity" asp-page="/Admin/Users/Index">رجوع</a>
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+            $('#account-form').on('blur keyup change click', 'select', function (e) {
+                validateSubmitForm();
+            });
+            $('#account-submit').on('click', function (e) {
+                e.preventDefault();
+                var img = document.createElement('img');
+                img.src = "@Url.Content("~/images/ajax-loader.gif")";
+                img.width = "10";
+                img.height = "10";
+                img.style = "width:10px;height:10px; margin:5px;";
+                $('#account-submit').prop('disabled', 'disabled');
+                $(this).append(img);
+                $('#account-form').submit();
+            });
+            function validateSubmitForm() {
+                var valid = $('#account-form').valid();
+                if (valid) {
+                    $('#account-submit').removeAttr('disabled');
+                }
+                else {
+                    $('#account-submit').prop('disabled', 'disabled');
+                }
+            }
+    </script>
+}

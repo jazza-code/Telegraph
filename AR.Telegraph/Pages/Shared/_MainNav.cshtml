@@ -1,0 +1,60 @@
+﻿<nav id="MainNav" class="navbar navbar-icon-top navbar-expand-md">
+    <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#MainNavContent" aria-controls="MainNavContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="MainNavContent">
+        <ul id="mainNavUl" class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" asp-area="" asp-page="/Index">
+                    <i class="fa fa-home"></i>
+                    الرئيسية
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    سياسة وإقتصاد
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">مصر</a>
+                    <a class="dropdown-item" href="#">الشرق الأسط</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">العالم</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    رياضة
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">كرة قدم</a>
+                    <a class="dropdown-item" href="#">رياضات أخرى</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">منديال روسيا 2018</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    تقارير وحوادث
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    منوعات
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">فن</a>
+                    <a class="dropdown-item" href="#">صحة</a>
+                    <a class="dropdown-item" href="#">مرأة</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">علوم وتكنولوجيا</a>
+                </div>
+            </li>
+        </ul>
+        <ul id="secNavUl" class="navbar-nav mr-auto">
+            <content id="LoginPartial" class="d-xl-none d-lg-none d-md-none d-sm-block">
+                <partial name="_LoginPartial" />
+            </content>
+        </ul>
+    </div>
+</nav>
