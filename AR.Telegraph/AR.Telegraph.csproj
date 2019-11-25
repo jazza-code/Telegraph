@@ -12,8 +12,14 @@
     <None Remove="Migrations\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="package.json" />
+  </ItemGroup>
+
 
   <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="3.0.0" />
@@ -36,6 +42,12 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
+    <None Include="package.json" />
   </ItemGroup>
 
 </Project>

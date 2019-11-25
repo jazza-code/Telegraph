@@ -51,10 +51,6 @@
                 </div>
             </li>
         </ul>
-        <ul id="secNavUl" class="navbar-nav mr-auto">
-            <content id="LoginPartial" class="d-xl-none d-lg-none d-md-none d-sm-block">
-                <partial name="_LoginPartial" />
-            </content>
-        </ul>
+        @await Html.PartialAsync("_LoginPartial.cshtml")
     </div>
 </nav>

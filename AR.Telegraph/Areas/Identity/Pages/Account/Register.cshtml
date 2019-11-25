@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     <link rel="icon" type="image/x-icon" sizes="32x32" href="~/favicon.ico" />
 </head>
 <body>
@@ -68,7 +68,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-12">
                                 <div class="row justify-content-center">
                                     <div class="form-group">
-                                        <img id="viewPicture" class="img-thumbnail clearfix" width="100" height="100" style="width:100px; height:100px;" src="~/images/user.jpg" onclick="document.getElementById('uploadPicture').click()" />
+                                        <img id="viewPicture" class="img-thumbnail" width="100" height="100" style="width:100px; height:100px;" src="~/images/user.jpg" onclick="document.getElementById('uploadPicture').click()" />
                                         <input id="uploadPicture" type="file" asp-for="Input.Picture" style="display:none;" onchange="readImage(this,'viewPicture')" />
                                         <span asp-validation-for="Input.Picture" class="text-danger"></span>
                                     </div>
@@ -144,8 +144,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await Html.PartialAsync("_ValidationScriptsPartial")
     <script>
-        $('#register-form').on('blur keyup change click', 'input', function (e) {
-            e.preventDefault();
+        $('#register-form').on('blur keyup change click', 'input', function () {
             validateSubmitForm();
         });
         $('#register-submit').on('click', function (e) {

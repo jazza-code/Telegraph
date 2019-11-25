@@ -28,16 +28,10 @@
                     <p>البريد الإلكتروني: @Model.Users[i].Email</p>
                 </div>
                 <div class="card-footer">
-                    <form method="post" class="form-group">
-                        <a class="btn btn-info" href="@Url.Page("/Admin/Users/Edit", new {Model.Users[i].UserName})">التفاصيل</a>
-                        <button type="submit" asp-page-handler="DeleteAccount" class="btn btn-danger">حذف</button>
-                    </form>
+                    <a class="btn btn-info" href="@Url.Page("/Admin/Users/Edit", new {Model.Users[i].UserName})">التفاصيل</a>
+                    <a class="btn btn-danger" href="@Url.Page("/Admin/Users/Delete", new {Model.Users[i].UserName})">حذف</a>
                 </div>
             </div>
         </div>
     }
-    @await Html.PartialAsync("_GetUserWithRoles")
 </div>
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}
