@@ -20,7 +20,7 @@
                 };
                 <form id="singout-form" class="hide" hidden asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@uriBuild.Uri"></form>
                 <div id="loginedNav" class="btn-group">
-                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img width="50" height="50"
                              style="width:35px; height:35px;display:inline-flex;border-radius:3px;"
                              src="@(user.GetPicture() != null && user.GetPicture().Length > 0 && !string.IsNullOrEmpty(user.PictureType) ? string.Format("data:{0};base64,{1}", user.PictureType, Convert.ToBase64String(user.GetPicture())) : Url.Content("~/images/user.jpg"))" />
