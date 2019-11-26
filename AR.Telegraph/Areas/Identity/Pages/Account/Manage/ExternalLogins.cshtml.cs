@@ -31,7 +31,7 @@ namespace AR.Telegraph.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(true);
             if (user == null)
             {
-                return NotFound($"غير قادر على تحميل المستخدم '{_userManager.GetUserId(User)}'.");
+                return NotFound($"خطأ , غير قادر على تحميل المستخدم '{_userManager.GetUserId(User)}'.");
             }
 
             CurrentLogins = await _userManager.GetLoginsAsync(user).ConfigureAwait(true);
@@ -46,13 +46,13 @@ namespace AR.Telegraph.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(true);
             if (user == null)
             {
-                return NotFound($"غير قادر على تحميل المستخدم '{_userManager.GetUserId(User)}'.");
+                return NotFound($"خطأ , غير قادر على تحميل المستخدم '{_userManager.GetUserId(User)}'.");
             }
 
             var result = await _userManager.RemoveLoginAsync(user, loginProvider, providerKey).ConfigureAwait(true);
             if (!result.Succeeded)
             {
-                StatusMessage = "لم تتم إزالة تسجيل الدخول الخارجي.";
+                StatusMessage = "خطأ , لم تتم إزالة تسجيل الدخول الخارجي.";
                 return RedirectToPage();
             }
 
@@ -75,19 +75,19 @@ namespace AR.Telegraph.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(true);
             if (user == null)
             {
-                return NotFound($"غير قادر على تحميل المستخدم '{_userManager.GetUserId(User)}'.");
+                return NotFound($"خطأ , غير قادر على تحميل المستخدم '{_userManager.GetUserId(User)}'.");
             }
 
             var info = await _signInManager.GetExternalLoginInfoAsync(await _userManager.GetUserIdAsync(user).ConfigureAwait(true)).ConfigureAwait(true);
             if (info == null)
             {
-                throw new InvalidOperationException($"حدث خطأ غير متوقع أثناء تحميل معلومات تسجيل الدخول الخارجية للمستخدم ذي المعرف '{user.Id}'.");
+                throw new InvalidOperationException($"خطأ , حدث خطأ غير متوقع أثناء تحميل معلومات تسجيل الدخول الخارجية للمستخدم ذي المعرف '{user.Id}'.");
             }
 
             var result = await _userManager.AddLoginAsync(user, info).ConfigureAwait(true);
             if (!result.Succeeded)
             {
-                StatusMessage = "لم تتم إضافة تسجيل الدخول الخارجي. لا يمكن ربط تسجيلات الدخول الخارجية إلا بحساب واحد.";
+                StatusMessage = "خطأ , لم تتم إضافة تسجيل الدخول الخارجي. لا يمكن ربط تسجيلات الدخول الخارجية إلا بحساب واحد.";
                 return RedirectToPage();
             }
 

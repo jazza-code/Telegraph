@@ -4,22 +4,33 @@
     var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
     var showBanner = !consentFeature?.CanTrack ?? false;
     var cookieString = consentFeature?.CreateConsentCookie();
-}
-
-@if (showBanner)
-{
-    <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
-        Use this space to summarize your privacy and cookie use policy. <a asp-page="/Privacy">Learn More</a>.
-        <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
-            <span aria-hidden="true">Accept</span>
-        </button>
-    </div>
-    <script>
-        (function () {
-            var button = document.querySelector("#cookieConsent button[data-cookie-string]");
-            button.addEventListener("click", function (event) {
-                document.cookie = button.dataset.cookieString;
-            }, false);
-        })();
-    </script>
+    if (showBanner)
+    {
+        <div class="modal modal-rtl fade" id="cookieConsentModal" tabindex="-1" role="dialog" aria-labelledby="cookieConsentModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cookieConsentModalLabel">تعريف الارتباط</h5>
+                    </div>
+                    <div class="modal-body">
+                        الموقع يعمل على ملفات تعريف الإرتباط. <a asp-area="" asp-page="/Privacy">أعرف أكثر</a>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal" aria-label="Close" data-cookie-string="@cookieString">
+                            <span aria-hidden="true">قبول</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            (function () {
+                $("#cookieConsentModal").modal('show');
+                var button = document.querySelector("#cookieConsentModal button[data-cookie-string]");
+                button.addEventListener("click", function (event) {
+                    document.cookie = button.dataset.cookieString;
+                }, false);
+            })();
+        </script>
+    }
 }

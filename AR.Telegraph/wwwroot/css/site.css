@@ -60,10 +60,14 @@ a {
     background-color: #1b6ec2;
     border-color: #1861ac;
 }
-
-button.accept-policy {
-    font-size: 1rem;
-    line-height: inherit;
+.backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity:0.5;
+    background-color: #000;
 }
 .dropdown-menu-right{
     text-align:right;
@@ -81,6 +85,11 @@ label.custom-control-label {
         right: 0;
         left: auto;
     }
+/*----------------------------------------- Modal rtl ---------------------------------*/
+.modal-rtl .modal-header .close {
+    padding: 1rem 1rem;
+    margin: -1rem auto -1rem -1rem;
+}
 /*-----------------------------------------Top Bar ------------------------------------*/
 .topbar {
     margin: 0;
@@ -207,12 +216,14 @@ label.custom-control-label {
 /* Sticky footer styles
 -------------------------------------------------- */
 .footer {
+    margin:0;
+    padding:5px;
     width: 100%;
     white-space: nowrap;
     line-height: 30px; /* Vertically center the text there */
     background-color: #343a40;
     color: #f8f9fa;
-    transition: ease-in-out;
+    transition:none;
 }
 
     .footer a {

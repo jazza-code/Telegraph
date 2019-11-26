@@ -2,16 +2,17 @@
     <div class="dateTime">
         @{
             var culture = new System.Globalization.CultureInfo("ar-eg");
-            var date = DateTime.Now.ToString("dd MMMM yyyy", culture);
+            var date = DateTime.UtcNow.ToString("dd MMMM yyyy", culture);
             var day = culture.DateTimeFormat.GetDayName(DateTime.Today.DayOfWeek);
         }
         <span>@day, <small>@date</small></span>
     </div>
     <ul class="social-icons">
-        <li><a title="Google" data-toggle="tooltip" data-placement="bottom"><i class="fab fa-google"></i></a></li>
-        <li><a title="Youtube" data-toggle="tooltip" data-placement="bottom"><i class="fab fa-youtube"></i></a></li>
-        <li><a title="twitter" data-toggle="tooltip" data-placement="bottom"><i class="fab fa-twitter"></i></a></li>
-        <li><a title="facebook" data-toggle="tooltip" data-placement="bottom"><i class="fab fa-facebook"></i></a></li>
-        <li><a title="facebook" data-toggle="tooltip" data-placement="bottom"><i class="fab fa-instagram"></i></a></li>
+        <li><a title="RSS" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+        <li><a title="Google" data-toggle="tooltip" data-placement="bottom"><i class="fab fa-google" aria-hidden="true"></i></a></li>
+        <li><a title="Youtube" data-toggle="tooltip" data-placement="bottom"><i class="fab fa-youtube" aria-hidden="true"></i></a></li>
+        <li><a title="twitter" data-toggle="tooltip" data-placement="bottom"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+        <li><a title="facebook" data-toggle="tooltip" data-placement="bottom"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+        <li><a title="facebook" data-toggle="tooltip" data-placement="bottom"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
     </ul>
 </section>
