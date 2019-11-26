@@ -14,13 +14,13 @@
             Query = null
         };
         <form id="singout-form" class="hide" hidden asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@uriBuild.Uri"></form>
-        <div id="loginedNav" class="btn-group">
-            <button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div id="loginedNav" class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img width="50" height="50"
                      style="width:35px; height:35px;display:inline-flex;border-radius:3px;"
                      src="@(user.GetPicture() != null && user.GetPicture().Length > 0 && !string.IsNullOrEmpty(user.PictureType) ? string.Format("data:{0};base64,{1}", user.PictureType, Convert.ToBase64String(user.GetPicture())) : Url.Content("~/images/user.jpg"))" />
                 @user.FullName
-            </button>
+            </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-user-edit"></i>&nbsp;الملف الشخصي</a>
                 @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded)

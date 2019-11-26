@@ -16,7 +16,7 @@
 <body>
     <header>
         @await Html.PartialAsync("/Areas/Identity/Pages/Shared/_TopBar.cshtml")
-        @await Html.PartialAsync("/Areas/Identity/Pages/Shared/_HeadNav.cshtml", null, new ViewDataDictionary(ViewData) { { "LoginPage", false }, {"RegiserPage", false } })
+        @await Html.PartialAsync("/Areas/Identity/Pages/Shared/_HeadNav.cshtml", null, new ViewDataDictionary(ViewData) { { "LoginPage", false }, { "RegiserPage", false } })
     </header>
     <main class="container py-3">
         @RenderBody()

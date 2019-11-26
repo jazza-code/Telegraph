@@ -32,14 +32,17 @@
             });
             $('#insertRole-submit').on('click', function (e) {
                 e.preventDefault();
-                var img = document.createElement('img');
-                img.src = "@Url.Content("~/images/ajax-loader.gif")";
-                img.width = "10";
-                img.height = "10";
-                img.style = "width:10px;height:10px; margin:5px;";
-                $('#insertRole-submit').prop('disabled', 'disabled');
-                $(this).append(img);
-                $('#insertRole-form').submit();
+                var valid = $('#insertRole-form').valid();
+                if (valid) {
+                    var img = document.createElement('img');
+                    img.src = "@Url.Content("~/images/ajax-loader.gif")";
+                    img.width = "10";
+                    img.height = "10";
+                    img.style = "width:10px;height:10px; margin:5px;";
+                    $('#insertRole-submit').prop('disabled', 'disabled');
+                    $(this).append(img);
+                    $('#insertRole-form').submit();
+                }
             });
             function validateSubmitForm() {
                 var valid = $('#insertRole-form').valid();

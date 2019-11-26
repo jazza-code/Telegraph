@@ -68,6 +68,19 @@ button.accept-policy {
 .dropdown-menu-right{
     text-align:right;
 }
+.custom-control.custom-checkbox {
+    padding-left: 0;
+}
+
+label.custom-control-label {
+    position: relative;
+    padding-right: 1.5rem;
+}
+
+    label.custom-control-label::before, label.custom-control-label::after {
+        right: 0;
+        left: auto;
+    }
 /*-----------------------------------------Top Bar ------------------------------------*/
 .topbar {
     margin: 0;
@@ -131,36 +144,50 @@ button.accept-policy {
 
 /*------------------------------------------ Header NavBar -------------------------------*/
 #HeadNav {
-    border-bottom: 1px solid #dee2e6;
+    box-shadow: inset 0 0 5px 0 #e9ecef;
 }
-#HeadNav a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-    font-family: 'Cairo', sans-serif;
-    font-size: 45px;
-    line-height: 60px;
-    font-weight: 500;
-    color: #cb0000;
-    text-shadow: 1px 1px 4px #343a40;
-}
-
-#loginedNav .dropdown-toggle {
-    border-radius: 0;
-    border: 1px solid #343a4008;
-}
+    #HeadNav a.navbar-brand {
+        white-space: normal;
+        text-align: center;
+        word-break: break-all;
+        font-family: 'Cairo', sans-serif;
+        font-size: 45px;
+        line-height: 60px;
+        font-weight: 500;
+        color: #cb0000;
+        text-shadow: 1px 1px 4px #6c757d;
+        transition: .4s;
+    }
+    #HeadNav a.navbar-brand:hover {
+        -webkit-animation: shake 1s;
+        animation: shake 1s;
+        text-shadow: 1px 1px 4px #343a40;
+    }
+    #loginedNav .dropdown-toggle {
+        padding: 10px;
+        border-radius: 0;
+        border: 1px solid #f8f9fa;
+        text-decoration: none;
+        color: #343a40;
+        background-color: #fefefe;
+    }
 
     #loginedNav .dropdown-toggle::after {
         display: none !important;
     }
 
     #loginedNav .dropdown-toggle:focus,
-    #loginedNav .dropdown-toggle:hover {
-        box-shadow: 0 0 3px 0.1rem #343a4008;
+    #loginedNav .dropdown-toggle:hover,
+    #loginedNav .dropdown-toggle:active {
+        box-shadow: 2px 2px 5px 0 #e9ecef;
+        outline: none;
+        border: none;
         transition: all .4s ease-in-out;
     }
 
 #loginedNav .dropdown-menu {
+    left:0 !important;
+    right:0 !important;
     margin: 0;
     padding: 0;
     min-width: unset !important;
@@ -168,14 +195,8 @@ button.accept-policy {
     float: right;
     text-align: right;
     border: none;
-    box-shadow: 0 0 3px 0.1rem #343a4008;
+    box-shadow: 2px 2px 5px 0 #e9ecef;
     transition: all .4s ease;
-}
-
-#loginedNav .dropdown-menu-right {
-    border-radius: 0;
-    right: 0;
-    left: 0;
 }
 
 #loginedNav .dropdown-menu .dropdown-item {

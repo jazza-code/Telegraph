@@ -1,9 +1,9 @@
-﻿<nav id="HeadNav" class="navbar navbar-expand-md">
-    <div class="container-fluid">
+﻿<nav id="HeadNav" class="navbar">
+    <div class="container">
         <a class="navbar-brand" asp-area="" asp-page="/Index">
             تلغراف
         </a>
-        <div class="navbar-collapse collapse d-md-inline-flex flex-sm-row-reverse">
+        <div id="HeadNavContent" class="d-md-inline-flex flex-sm-row-reverse">
             @await Html.PartialAsync("_LoginPartial.cshtml")
         </div>
     </div>
